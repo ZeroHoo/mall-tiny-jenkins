@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,15 @@ public class PmsBrandController {
     private PmsBrandService brandService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsBrandController.class);
+
+    @Value("${jenkins.version}")
+    private String version;
+
+    @GetMapping("/test")
+    @ResponseBody
+    public CommonResult test(){
+        return CommonResult.success(version);
+    }
 
     @ApiOperation("获取所有品牌列表")
     @RequestMapping(value = "listAll", method = RequestMethod.GET)
